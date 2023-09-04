@@ -30,3 +30,8 @@ WHERE codigo_producto IN (
     SELECT codigo_producto
     FROM e01_detalle_factura
 );
+
+-- 5
+-- Seleccionar los datos de los clientes junto con sus telefonos.
+SELECT *
+FROM e01_cliente JOIN e01_telefono t on e01_cliente.nro_cliente = t.nro_cliente;
