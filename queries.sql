@@ -21,3 +21,12 @@ WHERE nro_cliente NOT IN (
     SELECT nro_cliente
     FROM e01_factura
 );
+
+-- 4
+-- Seleccionar los productos que han sido facturados al menos 1 vez.
+SELECT *
+FROM e01_producto
+WHERE codigo_producto IN (
+    SELECT codigo_producto
+    FROM e01_detalle_factura
+);
