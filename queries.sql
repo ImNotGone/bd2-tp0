@@ -41,3 +41,13 @@ FROM e01_cliente JOIN e01_telefono t on e01_cliente.nro_cliente = t.nro_cliente;
 SELECT c.*, COUNT(f.nro_factura) AS cantidad_facturas
 FROM e01_cliente c JOIN e01_factura f on c.nro_cliente = f.nro_cliente
 GROUP BY c.nro_cliente;
+
+-- 7
+-- Listar las facturas que hayan sido compradas por el cliente de nombre "Pandora" y apellido "Tate".
+SELECT *
+FROM e01_factura
+WHERE nro_cliente = (
+    SELECT nro_cliente
+    FROM e01_cliente
+    WHERE nombre = 'Pandora' AND apellido = 'Tate'
+);
