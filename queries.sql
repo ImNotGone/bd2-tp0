@@ -12,3 +12,12 @@ WHERE nro_cliente IN (
     SELECT nro_cliente
     FROM e01_factura
 );
+
+-- 3
+-- Seleccionar todos los clientes que *no* tengan registrada una factura.
+SELECT *
+FROM e01_cliente
+WHERE nro_cliente NOT IN (
+    SELECT nro_cliente
+    FROM e01_factura
+);
