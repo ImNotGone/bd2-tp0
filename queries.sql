@@ -35,3 +35,9 @@ WHERE codigo_producto IN (
 -- Seleccionar los datos de los clientes junto con sus telefonos.
 SELECT *
 FROM e01_cliente JOIN e01_telefono t on e01_cliente.nro_cliente = t.nro_cliente;
+
+-- 6
+-- Devolver todos los clientes, con la cantidad de facturas que han realizado.
+SELECT c.*, COUNT(f.nro_factura) AS cantidad_facturas
+FROM e01_cliente c JOIN e01_factura f on c.nro_cliente = f.nro_cliente
+GROUP BY c.nro_cliente;
