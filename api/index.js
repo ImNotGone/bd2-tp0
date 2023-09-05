@@ -25,8 +25,8 @@ app.delete('/clients/:id', db.deleteClient)
 // 2
 // Dar de alta nuevos productos y modificacion de los ya existentes.
 // Tenga en cuenta que el precio de un producto es sin IVA.
-api.post('/products', db.createProduct)
-api.put('/products/:id', db.updateProduct)
+app.post('/products', db.createProduct)
+app.put('/products/:id', db.updateProduct)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
