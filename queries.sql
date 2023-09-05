@@ -70,3 +70,9 @@ WHERE nro_factura IN (
 -- Mostrar cada telefono junto con los datos del cliente.
 SELECT *
 FROM e01_telefono JOIN e01_cliente c on e01_telefono.nro_cliente = c.nro_cliente;
+
+-- 10
+-- Mostrar nombre y apellido de cada cliente junto con lo que gasto en total (con IVA incluido).
+SELECT c.nombre, c.apellido, SUM(f.total_con_iva) as total
+FROM e01_cliente c JOIN e01_factura f on c.nro_cliente = f.nro_cliente
+GROUP BY c.nro_cliente;
