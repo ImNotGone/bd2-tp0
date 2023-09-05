@@ -23,12 +23,12 @@ const db = require('./queries')
 
 // 1
 // Dar de alta a nuevos clientes, baja y modificacion de los ya existentes
-app.put('/clients', db.createClient)
-app.post('/clients/:id', db.updateClient)
+app.post('/clients', db.updateClient)
+app.put('/clients/:id', db.createClient)
 app.delete('/clients/:id', db.deleteClient)
 
 // 2
 // Dar de alta nuevos productos y modificacion de los ya existentes.
 // Tenga en cuenta que el precio de un producto es sin IVA.
-api.put('/products', db.createProduct)
-api.post('/products/:id', db.updateProduct)
+api.post('/products', db.updateProduct)
+api.put('/products/:id', db.createProduct)
