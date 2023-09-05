@@ -15,7 +15,7 @@ const createClient = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`Client added with ID: ${results.insertId}`)
+        response.status(201).send(`Client added with ID: ${id}`)
     })
 }
 
@@ -27,7 +27,7 @@ const updateClient = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).send(`Client modified with ID: ${results.insertId}`)
+        response.status(200).send(`Client modified with ID: ${id}`)
     })
 }
 
@@ -50,7 +50,7 @@ const createProduct = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`Product added with ID: ${results.insertId}`)
+        response.status(201).send(`Product added with ID: ${id}`)
     })
 }
 
@@ -62,7 +62,7 @@ const updateProduct = (request, response) => {
         if (error) {
             throw error
         }
-        response.status(200).send(`Product modified with ID: ${results.insertId}`)
+        response.status(200).send(`Product modified with ID: ${id}`)
     })
 }
 
