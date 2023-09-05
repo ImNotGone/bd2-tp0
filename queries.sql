@@ -65,3 +65,8 @@ WHERE nro_factura IN (
         WHERE marca = 'In Faucibus Inc.'
     )
 );
+
+-- 9
+-- Mostrar cada telefono junto con los datos del cliente.
+SELECT *
+FROM e01_telefono JOIN e01_cliente c on e01_telefono.nro_cliente = c.nro_cliente;
