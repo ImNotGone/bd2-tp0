@@ -18,15 +18,15 @@ app.get('/', (request, response) => {
 
 // 1
 // Dar de alta a nuevos clientes, baja y modificacion de los ya existentes
-app.post('/clients', db.updateClient)
-app.put('/clients/:id', db.createClient)
+app.post('/clients', db.createClient)
+app.put('/clients/:id', db.updateClient)
 app.delete('/clients/:id', db.deleteClient)
 
 // 2
 // Dar de alta nuevos productos y modificacion de los ya existentes.
 // Tenga en cuenta que el precio de un producto es sin IVA.
-api.post('/products', db.updateProduct)
-api.put('/products/:id', db.createProduct)
+api.post('/products', db.createProduct)
+api.put('/products/:id', db.updateProduct)
 
 app.listen(port, () => {
   console.log(`App running on port ${port}.`)
