@@ -15,7 +15,7 @@ const pool = new Pool(dbConfig);
 const createClient = (request, response) => {
     const { nro_cliente, nombre, apellido, direccion, activo } = request.body
 
-    pool.query('INSERT INTO e01_cliente (nro_cliente, nombre, apellido, direccoin, activo) VALUES ($1, $2) RETURNING *', [nro_cliente, nombre, apellido, direccion, activo], (error, results) => {
+    pool.query('INSERT INTO e01_cliente (nro_cliente, nombre, apellido, direccion, activo) VALUES ($1, $2, $3, $4, $5) RETURNING *', [nro_cliente, nombre, apellido, direccion, activo], (error, results) => {
         if (error) {
             throw error
         }
