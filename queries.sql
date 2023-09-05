@@ -51,3 +51,17 @@ WHERE nro_cliente = (
     FROM e01_cliente
     WHERE nombre = 'Pandora' AND apellido = 'Tate'
 );
+
+-- 8
+-- Listar todas las facturas que contengan productos de la marca "In Faucibus Inc."
+SELECT *
+FROM e01_factura
+WHERE nro_factura IN (
+    SELECT nro_factura
+    FROM e01_detalle_factura
+    WHERE codigo_producto IN (
+        SELECT codigo_producto
+        FROM e01_producto
+        WHERE marca = 'In Faucibus Inc.'
+    )
+);
