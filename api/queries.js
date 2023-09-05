@@ -8,14 +8,13 @@ const dbConfig = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
 const pool = new Pool(dbConfig);
 
 const createClient = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { nombre, apellido, direccion, activo } = request.body
+    const { nro_cliente, nombre, apellido, direccion, activo } = request.body
 
-    pool.query('INSERT INTO e01_cliente (nro_cliente, nombre, apellido, direccion, activo) VALUES ($1, $2, $3, $4, $5) RETURNING *', [id, nombre, apellido, direccion, activo], (error, results) => {
+    pool.query('INSERT INTO e01_cliente (nro_cliente, nombre, apellido, direccion, activo) VALUES ($1, $2, $3, $4, $5) RETURNING *', [nro_cliente, nombre, apellido, direccion, activo], (error, results) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`Client added with ID: ${id}`)
+        response.status(201).send(`Client added with ID: ${nro_cliente}`)
     })
 }
 
@@ -43,14 +42,13 @@ const deleteClient = (request, response) => {
 }
 
 const createProduct = (request, response) => {
-    const id = parseInt(request.params.id)
-    const { marca, nombre, descripcion, precio, stock } = request.body
+    const { codigo_producto, marca, nombre, descripcion, precio, stock } = request.body
 
-    pool.query('INSERT INTO e01_producto (codigo_producto, marca, nombre, descripcion, precio, stock) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [id, marca, nombre, descripcion, precio, stock], (error, results) => {
+    pool.query('INSERT INTO e01_producto (codigo_producto, marca, nombre, descripcion, precio, stock) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', [codigo_producto, marca, nombre, descripcion, precio, stock], (error, results) => {
         if (error) {
             throw error
         }
-        response.status(201).send(`Product added with ID: ${id}`)
+        response.status(201).send(`Product added with ID: ${codigo_producto}`)
     })
 }
 
