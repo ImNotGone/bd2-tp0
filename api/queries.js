@@ -1,10 +1,5 @@
-const express = require('express')
-const bodyParser = require('body-parser')
 const { Pool } = require('pg');
 const fs = require('fs');
-
-const app = express();
-app.use(bodyParser.json());
 
 // Read the database configuration from db-config.json
 const dbConfig = JSON.parse(fs.readFileSync('credentials.json', 'utf8'));
