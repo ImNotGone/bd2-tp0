@@ -1,26 +1,41 @@
 ## API
+## Configuration
+### API Config
 
-
-runs on port 3000
-
-index.js:
-```js
-const port = 3000
+### DB Config
+A file named `credentials.json` must be on this directory and contain the following fields, filled acording to your configuration
+```json 
+{
+  "user": "user",
+  "host": "host",
+  "database": "database",
+  "password": "password",
+  "port": 5432
+}
 ```
 
-### Endpoints
+## Endpoints
 
-##### HOME
-`GET` : `/`
+### HOME
+#### `GET` : `/`
 
-##### Clients
-`POST` : `/clients`
+### Clients
+#### `POST` : `/clients`
+To create a client, the following fields must be complete
+```json
+{
+    "nro_cliente": 101,
+    "nombre": "example-name",
+    "apellido" : "example-lastname",
+    "direccion" : "example-address",
+    "activo" : 20
+}
+```
+#### `PUT` : `/clients/:id`
 
-`PUT` : `/clients/:id`
+#### `DELETE` : `/clients/:id`
 
-`DELETE` : `/clients/:id`
+### Products
+#### `POST` : `/products`
 
-##### Products
-`POST` : `/products`
-
-`DELETE` : `/products/:id`
+#### `DELETE` : `/products/:id`
