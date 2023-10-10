@@ -36,6 +36,9 @@ const updateClient = (request, response) => {
             if (error) {
                 response.status(400).send("Error: " + error.detail);
             } else {
+                if (results.rowCount == 0) {
+                    return response.status(404).send("Client not found");
+                }
                 response.status(200).send(`Client modified with ID: ${id}`);
             }
         },
@@ -92,6 +95,9 @@ const updateProduct = (request, response) => {
             if (error) {
                 response.status(400).send("Error: " + error.detail);
             } else {
+                if (results.rowCount == 0) {
+                    return response.status(404).send("Product not found");
+                }
                 response.status(200).send(`Product modified with ID: ${id}`);
             }
         },
