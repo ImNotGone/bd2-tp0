@@ -34,7 +34,7 @@ const updateClient = (request, response) => {
         [id, nombre, apellido, direccion, activo],
         (error, results) => {
             if (error) {
-                response.status(400).json({ error });
+                response.status(400).send("Error: " + error.detail);
             } else {
                 response.status(200).send(`Client modified with ID: ${id}`);
             }
@@ -50,7 +50,7 @@ const deleteClient = (request, response) => {
         [id],
         (error, results) => {
             if (error) {
-                response.status(400).json({ error });
+                response.status(400).send("Error: " + error.detail);
             } else {
                 response.status(200).send(`Client deleted with ID: ${id}`);
             }
@@ -67,7 +67,7 @@ const createProduct = (request, response) => {
         [codigo_producto, marca, nombre, descripcion, precio, stock],
         (error, results) => {
             if (error) {
-                response.status(400).json({ error });
+                response.status(400).send("Error: " + error.detail);
             } else {
                 response
                     .status(201)
@@ -86,7 +86,7 @@ const updateProduct = (request, response) => {
         [id, marca, nombre, descripcion, precio, stock],
         (error, results) => {
             if (error) {
-                response.status(400).json({ error });
+                response.status(400).send("Error: " + error.detail);
             } else {
                 response.status(200).send(`Product modified with ID: ${id}`);
             }
