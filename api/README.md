@@ -1,4 +1,14 @@
-## API
+# API
+## Build
+```sh
+npm install
+```
+
+## Run
+```sh
+node index.js
+```
+
 ## Configuration
 ### API Config
 
