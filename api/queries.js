@@ -52,7 +52,11 @@ const deleteClient = (request, response) => {
             if (error) {
                 response.status(400).send("Error: " + error.detail);
             } else {
-                response.status(200).send(`Client deleted with ID: ${id}`);
+                if (results.rowCount == 0) {
+                    return response.status(404).send("Client not found");
+                } else {
+                    response.status(200).send(`Client deleted with ID: ${id}`);
+                }
             }
         },
     );
