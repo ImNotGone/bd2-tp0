@@ -1,0 +1,35 @@
+use tp0;
+
+// 1
+// Obtener el telefono y el numero de cliente del cliente con nombre "Wanda" y apellido "Baker".
+db.clients.aggregate([
+    {
+        // "WHERE"
+        $match: {
+            nombre: "Wanda",
+            apellido: "Baker"
+        }
+    },
+    {
+        // "JOIN"
+        $lookup: {
+            from: "telefono",
+            localField: "nro_cliente",
+            foreignField: "nro_cliente",
+            as: "telefono"
+        }
+    },
+    {
+        // Para que se armen 2 tuplas (1 por cada telefono)
+        $unwind: "$telefono"
+    },
+    {
+        // "SELECT"
+        $project: {
+            _id: 0,
+            nro_telefono: "$telefono.nro_telefono",
+            nro_cliente: 1
+        }
+    }
+    ]
+);
