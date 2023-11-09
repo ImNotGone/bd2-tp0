@@ -36,7 +36,7 @@ db.clients.aggregate([
 
 //2
 //Seleccionar todos los clientes que tengan registrada al menos una factura
-db.Client.aggregate([
+db.clients.aggregate([
    {
       $lookup:
          {
@@ -59,12 +59,12 @@ db.Client.aggregate([
          apellido: 1
       }
    }
-])
+]);
 
 
 //3
 //Seleccionar todos los clientes que no tengan registrada una factura
-db.Client.aggregate([
+db.clients.aggregate([
    {
       $lookup:
          {
@@ -76,7 +76,10 @@ db.Client.aggregate([
    },
    {
       $match: {
-         factura: { $exists: false }
+         $or: [
+            { factura: { $exists: false } },
+            { factura: { $eq: [] } }
+         ]
       }
    },
    {
@@ -87,11 +90,11 @@ db.Client.aggregate([
          apellido: 1
       }
    }
-])
+]);
 
 //4
 //Seleccionar los productos que han sido facturados al menos 1 vez.
-db.DetalleFactura.aggregate([
+db.detalle_factura.aggregate([
    {
       $group: {
          _id: "$codigo_producto",
@@ -106,7 +109,7 @@ db.DetalleFactura.aggregate([
    {
       $lookup:
          {
-           from: "Producto",
+           from: "producto",
            localField: "_id",
            foreignField: "codigo_producto",
            as: "productos_facturados"
@@ -128,11 +131,11 @@ db.DetalleFactura.aggregate([
 
 //5
 //Seleccionar los datos de los clientes junto con sus teléfonos
-db.Client.aggregate([
+db.clients.aggregate([
    {
       $lookup:
          {
-           from: "Telefono",
+           from: "telefono",
            localField: "nro_cliente",
            foreignField: "nro_cliente",
            as: "telefono"
@@ -146,7 +149,9 @@ db.Client.aggregate([
          apellido: 1,
          direccion: 1,
          activo: 1,
-         telefono: 1
+         "telefono.codigo_area": 1,
+         "telefono.nro_telefono": 1,
+         "telefono.tipo": 1
       }
    }
 ])
@@ -154,7 +159,7 @@ db.Client.aggregate([
 
 //6
 //Devolver todos los clientes, con la cantidad de facturas que tienen registradas (admitir nulos en valores de Clientes)
-db.Client.aggregate([
+db.clients.aggregate([
     {
         $lookup:{
             from:"factura",
@@ -179,26 +184,28 @@ db.Client.aggregate([
 //TODO revisar esta
 db.factura.aggregate([
     {
-        $lookup:
-        {
-            from: "clients"
-            local_field: "nro_cliente"
-            foreign_field: "nro_cliente"
+        $lookup: {
+            from: "clients",
+            localField: "nro_cliente",
+            foreignField: "nro_cliente",
             as: "clients"
         }
      },
      {
-        $match:
-        {
-            clients.nombre: "Pandora",
-            clients.apellido: "Tate"
+        $match: {
+            "clients.nombre": "Pandora",
+            "clients.apellido": "Tate"
         }
      },
      {
-        $project:{
-            _id:0,
+        $project: {
+            _id: 0,
             nro_factura: 1,
-            fecha: 1
+            fecha: 1,
+            total_sin_iva: 1,
+            iva: 1,
+            total_con_iva: 1,
+            nro_cliente: 1
         }
      }
 ])
@@ -207,21 +214,36 @@ db.factura.aggregate([
 //Listar todas las Facturas que contengan productos de la marca “In Faucibus Inc."
 db.factura.aggregate([
     {
-        $lookup:
-        {
+        $lookup: {
+            from: "detalle_factura",
+            localField: "nro_factura",
+            foreignField: "nro_factura",
+            as: "detalle_factura"
+        }
+    },
+    {
+        $lookup: {
            from: "producto",
-           localField: "codigo_producto",
+           localField: "detalle_factura.codigo_producto",
            foreignField: "codigo_producto",
-           as: "producto"
+           as: "productos"
         }
     },
     {
         $match: {
-            "producto.marca": "In Faucibus Inc."
+            "productos.marca": "In Faucibus Inc."
         }
     },
     {
-        $unwind: "$producto"
+        $project: {
+            _id: 0,
+            nro_factura: 1,
+            fecha: 1,
+            total_sin_iva: 1,
+            iva: 1,
+            total_con_iva: 1,
+            nro_cliente: 1
+        }
     }
 ])
 
@@ -233,11 +255,11 @@ db.telefono.aggregate([
             from: "clients",
             localField: "nro_cliente",
             foreignField: "nro_cliente",
-            as: "clients"
+            as: "client"
         }
     },
     {
-        $unwind: "$clients"
+        $unwind: "$client"
     },
     {
         $project:{
@@ -245,17 +267,18 @@ db.telefono.aggregate([
             codigo_area: 1,
             nro_telefono: 1,
             tipo: 1,
-            "clients.nombre": 1,
-            "clients.apellido": 1,
-            "clients.direccion": 1,
-            "clients.activo": 1
+            "client.nro_cliente": 1,
+            "client.nombre": 1,
+            "client.apellido": 1,
+            "client.direccion": 1,
+            "client.activo": 1
         }
     }
 ])
 
 //10
 //Mostrar nombre y apellido de cada cliente junto con lo que gastó en total (con IVAincluido)
-db.Client.aggregate([
+db.clients.aggregate([
    {
       $lookup:
          {
@@ -266,7 +289,10 @@ db.Client.aggregate([
          }
    },
    {
-      $unwind: "$factura"
+      $unwind: {
+          "path": "$factura",
+          "preserveNullAndEmptyArrays": true
+      }
    },
    {
       $group: {

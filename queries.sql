@@ -33,20 +33,20 @@ WHERE codigo_producto IN (
 
 -- 5
 -- Seleccionar los datos de los clientes junto con sus telefonos.
-SELECT *
-FROM e01_cliente JOIN e01_telefono t on e01_cliente.nro_cliente = t.nro_cliente;
+SELECT c.*, codigo_area, nro_telefono, tipo
+FROM e01_cliente c JOIN e01_telefono t on c.nro_cliente = t.nro_cliente;
 
 -- 6
 -- Devolver todos los clientes, con la cantidad de facturas que han realizado.
-SELECT c.*, COUNT(f.nro_factura) AS cantidad_facturas
-FROM e01_cliente c JOIN e01_factura f on c.nro_cliente = f.nro_cliente
+SELECT c.nro_cliente, c.nombre, c.apellido, COUNT(f.nro_factura) AS cantidad_facturas
+FROM e01_cliente c LEFT JOIN e01_factura f on c.nro_cliente = f.nro_cliente
 GROUP BY c.nro_cliente;
 
 -- 7
 -- Listar las facturas que hayan sido compradas por el cliente de nombre "Pandora" y apellido "Tate".
 SELECT *
 FROM e01_factura
-WHERE nro_cliente = (
+WHERE nro_cliente IN (
     SELECT nro_cliente
     FROM e01_cliente
     WHERE nombre = 'Pandora' AND apellido = 'Tate'
@@ -73,6 +73,6 @@ FROM e01_telefono JOIN e01_cliente c on e01_telefono.nro_cliente = c.nro_cliente
 
 -- 10
 -- Mostrar nombre y apellido de cada cliente junto con lo que gasto en total (con IVA incluido).
-SELECT c.nombre, c.apellido, SUM(f.total_con_iva) as total
-FROM e01_cliente c JOIN e01_factura f on c.nro_cliente = f.nro_cliente
+SELECT c.nombre, c.apellido, COALESCE(SUM(f.total_con_iva), 0) as total
+FROM e01_cliente c LEFT JOIN e01_factura f on c.nro_cliente = f.nro_cliente
 GROUP BY c.nro_cliente;
