@@ -13,16 +13,26 @@ node index.js
 ### API Config
 
 ### DB Config
-A file named `credentials.json` must be on this directory and contain the following fields, filled acording to your configuration
+A file named `config.json` must be on this directory and contain the following fields, filled acording to your configuration
 ```json 
 {
-  "user": "user",
-  "host": "host",
-  "database": "database",
-  "password": "password",
-  "port": 5432
+  "postgres": {
+    "user": "user",
+    "host": "host",
+    "database": "database",
+    "password": "password",
+    "port": 5432
+  },
+  "mongo": {
+    "uri": "mongodb://localhost:27017",
+    "database": "tp0"
+  },
+  "persistence": "mongo"
 }
 ```
+
+With this file you can configure potgres, mongo and which persistence layer to be used by the api.
+The layers currently supported are `mongo` and `postgres`.
 
 ## Endpoints
 

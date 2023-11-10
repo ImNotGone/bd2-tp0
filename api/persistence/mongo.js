@@ -1,9 +1,13 @@
 const { MongoClient } = require("mongodb");
 mongoURI = "mongodb://localhost:27017";
 dbName = "tp0";
+const fs = require("fs");
 
 const client = new MongoClient(mongoURI);
 const db = client.db(dbName);
+const dbConfig = JSON.parse(fs.readFileSync("config.json", "utf8"))["mongo"];
+mongoURI = dbConfig["uri"];
+dbName = dbConfig["database"];
 
 const createClient = async (request, response) => {
     try {

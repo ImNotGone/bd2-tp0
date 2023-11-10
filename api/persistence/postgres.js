@@ -2,7 +2,7 @@ const { Pool } = require("pg");
 const fs = require("fs");
 
 // Read the database configuration from db-config.json
-const dbConfig = JSON.parse(fs.readFileSync("credentials.json", "utf8"));
+const dbConfig = JSON.parse(fs.readFileSync("config.json", "utf8"))["postgres"];
 
 // Create a PostgreSQL connection pool using the imported credentials
 const pool = new Pool(dbConfig);

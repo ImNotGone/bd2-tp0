@@ -1,9 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const { validationResult } = require("express-validator");
-
+const fs = require("fs");
 const app = express();
-const db = require("./persistence/mongo");
+
+persistence = JSON.parse(fs.readFileSync("config.json", "utf8"))["persistence"];
+if (!persistence) {
+    console.error("Could not read persistence configuration");
+    process.exit(1);
+}
+if (persistence != "postgres" && persistence != "mongo") {
+    console.error(persistence + " is not a valid persistence");
+    process.exit(1);
+}
+
+
+const db = require("./persistence/" + persistence);
 const {
     validateCreateClient,
     validateUpdateClient,
