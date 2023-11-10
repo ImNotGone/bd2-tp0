@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const { validationResult } = require("express-validator");
 
 const app = express();
-const db = require("./queries");
+const db = require("./persistence/mongo");
 const {
     validateCreateClient,
     validateUpdateClient,
