@@ -1,13 +1,35 @@
 const { MongoClient } = require("mongodb");
-mongoURI = "mongodb://localhost:27017";
-dbName = "tp0";
 const fs = require("fs");
 
-const client = new MongoClient(mongoURI);
-const db = client.db(dbName);
 const dbConfig = JSON.parse(fs.readFileSync("config.json", "utf8"))["mongo"];
+if (!dbConfig) {
+    console.error("Could not read mongo configuration");
+    process.exit(1);
+}
+
+if (!dbConfig["uri"] || !dbConfig["database"]) {
+    console.error("Mongo configuration is incomplete");
+    process.exit(1);
+}
 mongoURI = dbConfig["uri"];
 dbName = dbConfig["database"];
+
+let db;
+
+// Test the connection
+console.log("Connecting to MongoDB...");
+const connectToMongoDB = async () => {
+    try {
+        const client = new MongoClient(mongoURI);
+        await client.connect();
+        console.log('Connected to MongoDB');
+        db = client.db(dbName);
+    } catch (error) {
+        console.error('Error connecting to MongoDB:', error.message);
+        process.exit(1);
+    }
+};
+connectToMongoDB();
 
 const createClient = async (request, response) => {
     try {

@@ -4,8 +4,23 @@ const fs = require("fs");
 // Read the database configuration from db-config.json
 const dbConfig = JSON.parse(fs.readFileSync("config.json", "utf8"))["postgres"];
 
+if (!dbConfig) {
+    console.error("Could not read postgres configuration");
+    process.exit(1);
+}
+
 // Create a PostgreSQL connection pool using the imported credentials
 const pool = new Pool(dbConfig);
+
+// Test the connection
+console.log("Connecting to PostgreSQL...");
+pool.query("SELECT NOW()", (error, results) => {
+    if (error) {
+        console.error("Error connecting to the database:", error.message);
+        process.exit(1);
+    }
+    console.log("Connected to PostgreSQL");
+});
 
 const createClient = (request, response) => {
     const { nro_cliente, nombre, apellido, direccion, activo } = request.body;
