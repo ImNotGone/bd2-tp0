@@ -9,10 +9,7 @@ npm install
 node index.js
 ```
 
-## Configuration
-### API Config
-
-### DB Config
+## Config
 A file named `config.json` must be on this directory and contain the following fields, filled acording to your configuration
 ```json 
 {
