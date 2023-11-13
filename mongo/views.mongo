@@ -1,0 +1,42 @@
+-- 1
+-- Se debe realizar una vista que devuelva las facturas ordenadas por fecha.
+db.createView(
+  "facturas_ordenadas",
+  "factura",
+  [
+    { $sort: { fecha: 1 } },
+    { $project: {
+        _id: 0
+      }
+    }
+  ]
+);
+
+-- 2
+-- Se necesita una vista que devuelva todos los productos que aun no han sido facturados.
+db.createView(
+  "productos_no_facturados",
+  "producto",
+  [
+    {
+      $lookup: {
+        from: "detalle_factura",
+        localField: "codigo_producto",
+        foreignField: "codigo_producto",
+        as: "detalle_factura"
+      }
+    },
+    {
+      $match: {
+        "detalle_factura": { $size: 0 }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        detalle_factura: 0
+      }
+    }
+  ]
+);
+
