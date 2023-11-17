@@ -1,10 +1,13 @@
-# bd2-tpo
+# TPO - Base de Datos II
 
 ### Consultas
-Las 10 consultas requeridas se encuentran en el archivo `queries.sql`
+Las 10 consultas requeridas se encuentran en el archivo `queries.sql` y `queries.mongo` para Postgres y Mongo respectivamente.
 
 ### Vistas
-Las 2 vistas requeridas se encuentran en el archivo `views.sql`
+Las 2 vistas requeridas se encuentran en el archivo `views.sql` y `views.mongo` para Postgres y Mongo respectivamente.
 
-### Api
-La implementacion de la api se encuentra en el directorio `api` y su documentacion en el archivo `api/README.md`
+### API
+La implementación de la API se encuentra en el directorio `api` y su documentación en el archivo `api/README.md`
+
+### Migración
+La implementacion de la migración se encuentra en el directorio `mongo` y su documentación en el archivo `mongo/README.md`.
