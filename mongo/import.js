@@ -3,7 +3,7 @@ const { MongoClient } = require('mongodb');
 const fs = require("fs");
 
 // PostgreSQL connection settings
-const pgConfig = JSON.parse(fs.readFileSync("config.json", "utf8"));
+const pgConfig = JSON.parse(fs.readFileSync("credentials.json", "utf8"));
 
 // MongoDB connection settings
 const mongoUrl = 'mongodb://localhost:27017';
