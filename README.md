@@ -10,4 +10,4 @@ Las 2 vistas requeridas se encuentran en el archivo `views.sql` y `views.mongo` 
 La implementación de la API se encuentra en el directorio `api` y su documentación en el archivo `api/README.md`
 
 ### Migración
-La implementacion de la migración se encuentra en el directorio `mongo` y su documentación en el archivo `mongo/README.md`.
+La implementacion de la migración de Postgres a Mongo se encuentra en el directorio `mongo` y su documentación en el archivo `mongo/README.md`.
