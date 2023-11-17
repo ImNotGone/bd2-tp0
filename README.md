@@ -1,13 +1,13 @@
 # TPO - Base de Datos II
 
-### Consultas
-Las 10 consultas requeridas se encuentran en el archivo `queries.sql` y `queries.mongo` para Postgres y Mongo respectivamente.
+### Queries
+The 10 required queries are located in the `queries.sql` and `queries.mongo` files for Postgres and Mongo respectively.
 
-### Vistas
-Las 2 vistas requeridas se encuentran en el archivo `views.sql` y `views.mongo` para Postgres y Mongo respectivamente.
+### Views
+The 2 required views are located in the file `views.sql` and `views.mongo` files for Postgres and Mongo respectively.
 
 ### API
-La implementación de la API se encuentra en el directorio `api` y su documentación en el archivo `api/README.md`
+The API implementation is located in the `api` directory and its documentation in the `api/README.md` file.
 
-### Migración
-La implementacion de la migración de Postgres a Mongo se encuentra en el directorio `mongo` y su documentación en el archivo `mongo/README.md`.
+### Migration
+The implementation of the migration from Postgres to Mongo is located in the `mongo` directory and its documentation in the `mongo/README.md` file.
