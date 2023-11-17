@@ -2,15 +2,15 @@ const pgp = require('pg-promise')();
 const { MongoClient } = require('mongodb');
 const fs = require("fs");
 
-// PostgreSQL connection settings
-const pgConfig = JSON.parse(fs.readFileSync("credentials.json", "utf8"));
+// Connection settings
+const config = JSON.parse(fs.readFileSync("config.json", "utf8"));
 
 // MongoDB connection settings
-const mongoUrl = 'mongodb://localhost:27017';
-const dbName = 'tp0';
+const mongoUrl = config["mongo"]["uri"];
+const dbName = config["mongo"]["database"];
 
 // Connect to PostgreSQL
-const pgdb = pgp(pgConfig);
+const pgdb = pgp(config["postgres"])
 
 // Connect to MongoDB and create the target collection
 // Based on the data in the PostgreSQL table
