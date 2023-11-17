@@ -28,7 +28,7 @@ A file named `config.json` must be on this directory and contain the following f
 }
 ```
 
-With this file you can configure potgres, mongo and which persistence layer to be used by the api.
+With this file you can configure postgres, mongo and which persistence layer to be used by the api.
 The layers currently supported are `mongo` and `postgres`.
 
 ## Endpoints
